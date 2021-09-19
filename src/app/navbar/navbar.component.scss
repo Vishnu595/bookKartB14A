@@ -1,0 +1,33 @@
+mat-toolbar{
+    width: 18%;
+}
+
+mat-toolbar-row{
+    border: 1px solid black;
+    cursor: pointer;
+}
+
+.active-category {
+    background-color: #fb641b!important;
+}
+
+.selected-images{
+    padding: 0px 9px 4px 0px;
+    display: inline-flex;
+}
+
+.selectedFilters,.selected-filters{
+    display: inline-flex;
+    padding: 2px 1px;
+}
+
+div#container {
+    width: 80%;
+    float: right;
+    height: 82.5%;
+    overflow-x: scroll;
+    top: 2px;
+    border: solid;
+    left: 257px !important;
+    position: absolute;
+}

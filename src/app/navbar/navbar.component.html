@@ -1,0 +1,92 @@
+<mat-toolbar color="primary">
+    <mat-toolbar-row (click)="setActiveTab('All Categories')"
+        [ngClass]="{'active-category':selectedTab == 'All Categories'}">
+        <span>All Categories</span>
+    </mat-toolbar-row>
+
+    <mat-toolbar-row (click)="setActiveTab('Biography')" [ngClass]="{'active-category':selectedTab == 'Biography'}">
+        <span>Biography</span>
+        <span class="example-spacer"></span>
+    </mat-toolbar-row>
+    <mat-toolbar-row (click)="setActiveTab('Fiction')" [ngClass]="{'active-category':selectedTab == 'Fiction'}">
+        <span>Fiction</span>
+    </mat-toolbar-row>
+
+    <mat-toolbar-row (click)="setActiveTab('Mystery')" [ngClass]="{'active-category':selectedTab == 'Mystery'}">
+        <span>Mystery</span>
+        <span class="example-spacer"></span>
+    </mat-toolbar-row>
+    <mat-toolbar-row (click)="setActiveTab('Fantasy')" [ngClass]="{'active-category':selectedTab == 'Fantasy'}">
+        <span>Fantasy</span>
+    </mat-toolbar-row>
+
+    <mat-toolbar-row (click)="setActiveTab('Romance')" [ngClass]="{'active-category':selectedTab == 'Romance'}">
+        <span>Romance</span>
+        <span class="example-spacer"></span>
+    </mat-toolbar-row>
+    <mat-toolbar-row (click)="similarBooks()">
+        Similar Books
+    </mat-toolbar-row>
+</mat-toolbar>
+<br>
+<mat-toolbar color="primary">
+    <mat-toolbar-row>
+        <span>Price Filter</span>
+        <span class="example-spacer"></span>
+    </mat-toolbar-row>
+</mat-toolbar>
+<mat-toolbar style="    display: table;">
+    <mat-slider min="100" max="10000" step="1" value="1000" (change)="updateSetting($event)" #matslider></mat-slider>
+    <br>
+    <div> ₹100 to ₹{{ matslider.value }}
+    </div>
+</mat-toolbar>
+
+<div id="container">
+    <div *ngIf="!isSimilarBook" style="text-align: center;">
+        <b>
+            {{selectedTab}}
+        </b>
+        <input type="search" placeholder="enter author book id or title to search" style="position: fixed;" (blur)="searchByBook($event)" />
+    </div>
+    <div *ngIf="isSimilarBook">
+       <b>Similar Books</b>
+     </div>
+
+    <div  class="selectedFilters">
+        <div *ngIf="!isSimilarBook && selectedList && selectedList[0]"  class="selected-images">
+        <div *ngFor="let key of productList;let i = index;">
+            <img src="{{url}}{{key.coverFileName}}" style="height: 473px" />
+            <div>Book Id: {{key.bookId}} Author: {{key.author}} | Title: {{key.title}} | Price: {{key.price}}</div>
+        </div>
+    </div>
+        <div *ngIf="isSimilarBook && similarBooksData[0] &&similarBooksData[0].list.list" class="selected-filters">
+            <!-- <mat-toolbar-row> -->
+                <mat-card *ngFor="let key of similarBooksData[0].list.list;let i=index;" class="mat-card mat-focus-indicator book-card mat-elevation-z2">
+                    <mat-card-content  class="mat-card-content image-card">
+                        <a  mattooltipclass="example-tooltip" aria-label="Book title"
+                            class="mat-tooltip-trigger" href="#"
+                            aria-describedby="cdk-describedby-message-46" cdk-describedby-host="">
+                                <img src="./../../assets/{{similarBooksData[0].list.key}}/HP{{key.id?key.id:i+1}}.jpg" />
+                            </a>
+                        
+                    </mat-card-content>
+                    <mat-card-content  class="mat-card-content">
+                        <div  class="card-title"><a 
+                                href="#"><strong >A Dance with
+                                    Dragons</strong></a></div>
+                        <p >₹{{key.price}}.00</p><button  mat-raised-button=""
+                            color="primary"
+                            class="mat-focus-indicator mat-raised-button mat-button-base mat-primary"><span
+                                class="mat-button-wrapper"><span >
+                                    <mat-icon  role="img"
+                                        class="mat-icon notranslate material-icons mat-icon-no-color" aria-hidden="true"
+                                        data-mat-icon-type="font">shopping_cart</mat-icon>
+                                </span> Add to Cart
+                            </span><span matripple="" class="mat-ripple mat-button-ripple"></span><span
+                                class="mat-button-focus-overlay"></span></button>
+                    </mat-card-content>
+                </mat-card>
+        </div>
+    </div>
+</div>
